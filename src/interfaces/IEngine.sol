@@ -2,6 +2,8 @@
 pragma solidity 0.8.20;
 
 import {IPerpsMarketProxy} from "src/interfaces/synthetix/IPerpsMarketProxy.sol";
+import {IERC20} from "src/interfaces/tokens/IERC20.sol";
+import {Zap} from "src/utils/zap/Zap.sol";
 
 /// @title Kwenta Smart Margin v3: Engine Interface
 /// @notice Conditional Order -> "co"
@@ -91,6 +93,12 @@ interface IEngine {
     /// @notice thrown when address is zero
     error ZeroAddress();
 
+    /// @notice thrown when Spot Market address is zero
+    error SpotMarketZeroAddress();
+
+    /// @notice thrown when $sUSD address is zero
+    error SUSDZeroAddress();
+
     /// @notice thrown when attempting to re-use a nonce
     error InvalidNonce();
 
@@ -116,6 +124,10 @@ interface IEngine {
     /// @notice thrown when attempting to call
     // an unsupported function
     error NotSupported();
+
+    /// @notice thrown when attempting to call
+    // a zap operation with an Invalid Direction
+    error InvalidDirection();
 
     /*//////////////////////////////////////////////////////////////
                                  EVENTS
@@ -150,6 +162,8 @@ interface IEngine {
     event ConditionalOrderExecuted(
         IPerpsMarketProxy.Data order, uint256 synthetixFees, uint256 executorFee
     );
+
+    event WrappedAndDeposited(uint128 indexed accountId, uint128 marketId, uint256 wrappedAmount);
 
     /*//////////////////////////////////////////////////////////////
                              AUTHENTICATION
@@ -244,7 +258,7 @@ interface IEngine {
     /// @param _accountId the account to modify
     /// @param _amount the amount of collateral
     /// to add or remove (negative to remove)
-    function modifyCollateralZap(uint128 _accountId, int256 _amount)
+    function modifyCollateralZap(uint128 _accountId, uint256 _amount, IERC20 _collateral, uint128 _marketId, uint256 _tolerableWrapAmount, uint256 _tolerableSwapAmount, Zap.Direction _direction)
         external
         payable;
 
@@ -303,7 +317,7 @@ interface IEngine {
     /// (i.e. ERC-20 decimal discrepancies)
     /// @param _accountId the id of the account to credit
     /// @param _amount the amount of $USDC to transfer and zap
-    function creditAccountZap(uint128 _accountId, uint256 _amount)
+    function creditAccountZap(uint128 _accountId, uint256 _amount, IERC20 _collateral, uint128 _marketId, uint256 _tolerableWrapAmount, uint256 _tolerableSwapAmount)
         external
         payable;
 
@@ -324,7 +338,7 @@ interface IEngine {
     /// (i.e. ERC-20 decimal discrepancies)
     /// @param _accountId the id of the account to debit
     /// @param _amount the amount of $sUSD to debit
-    function debitAccountZap(uint128 _accountId, uint256 _amount)
+    function debitAccountZap(uint128 _accountId, uint256 _amount, IERC20 _collateral, uint128 _marketId, uint256 _tolerableWrapAmount, uint256 _tolerableSwapAmount)
         external
         payable;
 
