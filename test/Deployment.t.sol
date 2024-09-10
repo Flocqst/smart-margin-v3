@@ -81,7 +81,7 @@ contract DeploymentTest is Test, Setup {
             usdc: usdc,
             sUSDCId: sUSDCId
         }) {} catch (bytes memory reason) {
-            assertEq(bytes4(reason), ZapErrors.SpotMarketZeroAddress.selector);
+            assertEq(bytes4(reason), IEngine.SpotMarketZeroAddress.selector);
         }
     }
 
@@ -94,7 +94,7 @@ contract DeploymentTest is Test, Setup {
             usdc: usdc,
             sUSDCId: sUSDCId
         }) {} catch (bytes memory reason) {
-            assertEq(bytes4(reason), ZapErrors.SUSDZeroAddress.selector);
+            assertEq(bytes4(reason), IEngine.SUSDZeroAddress.selector);
         }
     }
 }

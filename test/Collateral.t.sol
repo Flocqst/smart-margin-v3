@@ -2,6 +2,7 @@
 pragma solidity 0.8.20;
 
 import {Bootstrap} from "test/utils/Bootstrap.sol";
+import {Zap} from "src/utils/zap/Zap.sol";
 
 contract CollateralTest is Bootstrap {
     function setUp() public {
@@ -115,7 +116,12 @@ contract DepositCollateral is CollateralTest {
 
         engine.modifyCollateralZap({
             _accountId: accountId,
-            _amount: int256(SMALLEST_AMOUNT)
+            _amount: SMALLEST_AMOUNT,
+            _collateral: USDC,
+            _marketId: 2,  // market ID for sUSDC
+            _tolerableWrapAmount: 0,
+            _tolerableSwapAmount: 0,
+            _direction: Zap.Direction.In
         });
 
         vm.stopPrank();
@@ -223,7 +229,12 @@ contract WithdrawCollateral is CollateralTest {
 
         engine.modifyCollateralZap({
             _accountId: accountId,
-            _amount: -int256(SMALLEST_AMOUNT * decimalsFactor)
+            _amount: SMALLEST_AMOUNT * decimalsFactor,
+            _collateral: USDC,
+            _marketId: 2,  // market ID for sUSDC
+            _tolerableWrapAmount: 0,
+            _tolerableSwapAmount: 0,
+            _direction: Zap.Direction.Out
         });
 
         vm.stopPrank();

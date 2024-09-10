@@ -70,7 +70,11 @@ contract Credit is CreditTest {
 
         engine.creditAccountZap({
             _accountId: accountId,
-            _amount: SMALLEST_AMOUNT
+            _amount: SMALLEST_AMOUNT,
+            _collateral: USDC,
+            _marketId: 2,
+            _tolerableWrapAmount: 0,
+            _tolerableSwapAmount: 0
         });
 
         uint256 postActorUSDCBalance = USDC.balanceOf(ACTOR);
@@ -153,7 +157,11 @@ contract Debit is CreditTest {
 
         engine.creditAccountZap({
             _accountId: accountId,
-            _amount: SMALLEST_AMOUNT
+            _amount: SMALLEST_AMOUNT,
+            _collateral: USDC,
+            _marketId: 2,
+            _tolerableWrapAmount: 0,
+            _tolerableSwapAmount: 0
         });
 
         uint256 preActorUSDCBalance = USDC.balanceOf(ACTOR);
@@ -161,7 +169,11 @@ contract Debit is CreditTest {
 
         engine.debitAccountZap({
             _accountId: accountId,
-            _amount: SMALLEST_AMOUNT * decimalsFactor
+            _amount: SMALLEST_AMOUNT * decimalsFactor,
+            _collateral: USDC,
+            _marketId: 2,
+            _tolerableWrapAmount: 0,
+            _tolerableSwapAmount: 0
         });
 
         uint256 postActorUSDCBalance = USDC.balanceOf(ACTOR);
@@ -190,7 +202,14 @@ contract Debit is CreditTest {
 
         vm.prank(BAD_ACTOR);
 
-        engine.debitAccountZap({_accountId: accountId, _amount: AMOUNT});
+        engine.debitAccountZap({
+            _accountId: accountId,
+            _amount: AMOUNT,
+            _collateral: USDC,
+            _marketId: 2,
+            _tolerableWrapAmount: 0,
+            _tolerableSwapAmount: 0
+        });
     }
 
     function test_debit_Unauthorized() public {
@@ -251,7 +270,11 @@ contract Debit is CreditTest {
 
         engine.creditAccountZap({
             _accountId: accountId,
-            _amount: SMALLEST_AMOUNT
+            _amount: SMALLEST_AMOUNT,
+            _collateral: USDC,
+            _marketId: 2,
+            _tolerableWrapAmount: 0,
+            _tolerableSwapAmount: 0
         });
 
         vm.expectRevert(
@@ -260,7 +283,11 @@ contract Debit is CreditTest {
 
         engine.debitAccountZap({
             _accountId: accountId,
-            _amount: (SMALLEST_AMOUNT * decimalsFactor) + 1
+            _amount: (SMALLEST_AMOUNT * decimalsFactor) + 1,
+            _collateral: USDC,
+            _marketId: 2,
+            _tolerableWrapAmount: 0,
+            _tolerableSwapAmount: 0
         });
 
         vm.stopPrank();
