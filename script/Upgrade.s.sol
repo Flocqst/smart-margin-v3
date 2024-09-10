@@ -7,6 +7,8 @@ import {Engine} from "src/Engine.sol";
 // parameters
 import {BaseSepoliaParameters} from
     "script/utils/parameters/BaseSepoliaParameters.sol";
+import {ArbitrumSepoliaParameters} from
+    "script/utils/parameters/ArbitrumSepoliaParameters.sol";
 import {BaseParameters} from "script/utils/parameters/BaseParameters.sol";
 
 // forge utils
@@ -29,7 +31,7 @@ contract Setup is Script {
             _spotMarketProxy: spotMarketProxy,
             _sUSDProxy: sUSDProxy,
             _pDAO: pDAO,
-            _usdc: usdc,
+            _zap: usdc,
             _sUSDCId: sUSDCId
         });
     }

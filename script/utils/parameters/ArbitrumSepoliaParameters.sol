@@ -15,5 +15,7 @@ contract ArbitrumSepoliaParameters {
 
     address public constant USDC = 0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d;
 
+    address public constant ZAP = 0x5733Ef72c134E7A276029CB4ba07Bff8b1163086;
+
     uint128 public constant SUSDC_SPOT_MARKET_ID = 2;
 }

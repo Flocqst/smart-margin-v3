@@ -31,7 +31,7 @@ contract Setup is Script {
             _spotMarketProxy: spotMarketProxy,
             _sUSDProxy: sUSDProxy,
             _pDAO: pDAO,
-            _usdc: usdc,
+            _zap: usdc,
             _sUSDCId: sUSDCId
         });
 
@@ -119,7 +119,7 @@ contract DeployArbitrumSepolia is Setup, ArbitrumSepoliaParameters {
             spotMarketProxy: SPOT_MARKET_PROXY,
             sUSDProxy: USD_PROXY,
             pDAO: PDAO,
-            usdc: USDC,
+            usdc: ZAP,
             sUSDCId: SUSDC_SPOT_MARKET_ID
         });
 
