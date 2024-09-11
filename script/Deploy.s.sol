@@ -108,7 +108,7 @@ contract DeployArbitrum is Setup, ArbitrumParameters {
 
 /// @dev steps to deploy and verify on Arbitrum Sepolia:
 /// (1) load the variables in the .env file via `source .env`
-/// (2) run `forge script script/Deploy.s.sol:DeployArbitrumSepolia --rpc-url $ARBITRUM_SEPOLIA_RPL_URL --etherscan-api-key $ARBISCAN_API_KEY --broadcast --verify -vvvv`
+/// (2) run `forge script script/Deploy.s.sol:DeployArbitrumSepolia --rpc-url $ARBITRUM_SEPOLIA_RPC_URL --etherscan-api-key $ARBISCAN_API_KEY --broadcast --verify -vvvv`
 contract DeployArbitrumSepolia is Setup, ArbitrumSepoliaParameters {
     function run() public {
         uint256 privateKey = vm.envUint("PRIVATE_KEY");
