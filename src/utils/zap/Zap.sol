@@ -89,22 +89,4 @@ contract Zap is ZapErrors, ZapEvents {
         _data.collateral.transfer(_data.receiver, amount);
     }
 
-    function wrap(ZapData calldata _data) external {
-        uint256 amount = _data.amount;
-
-        _data.collateral.transferFrom(msg.sender, address(this), amount);
-        _data.collateral.approve(address(_data.spotMarket), amount);
-
-        (amount,) = _data.spotMarket.wrap({
-            marketId: _data.marketId,
-            wrapAmount: amount,
-            minAmountReceived: _data.tolerance.tolerableWrapAmount
-        });
-
-        IERC20 synth = IERC20(_data.spotMarket.getSynth(_data.marketId));
-        synth.approve(address(_data.spotMarket), amount);
-
-        synth.transfer(_data.receiver, amount);
-    }
-
 }
